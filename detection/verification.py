@@ -27,6 +27,6 @@ class VerificationEngine:
             if len(self.detections[person_id]) >= self.threshold_count:
                 self.last_alert[person_id] = current_time
                 self.detections[person_id] = [] # Reset
-                return True, f"SOS ALERT: Person ID {person_id} signaled for help {self.threshold_count} times!"
+                return True, f"MONITORING ALERT: Person ID {person_id} signaled {self.threshold_count} times!"
         
         return False, None
