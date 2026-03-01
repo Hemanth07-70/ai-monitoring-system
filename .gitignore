@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.env
+.DS_Store
+dataset/
+model/saved_models/*.pkl
+data/*.json
+venv/
+.vscode/
+.idea/
+yolov8n.pt
+*.png

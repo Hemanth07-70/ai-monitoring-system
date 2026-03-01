@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOS Sentinel | AI Distress Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <span class="sos-icon">🆘</span>
+                <h1>SOS <span>Sentinel</span></h1>
+            </div>
+            <div class="system-status">
+                <span class="pulse"></span> System Live
+            </div>
+        </header>
+
+        <main>
+            <section class="live-feed-section">
+                <div class="card feed-card">
+                    <div class="card-header">
+                        <i class="fas fa-video"></i> Live Surveillance Feed
+                    </div>
+                    <div class="video-container">
+                        <img src="{{ url_for('video_feed') }}" alt="Live Feed">
+                        <div class="overlay-data">
+                            <span id="overlay-time">00:00:00</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="dashboard-section">
+                <div class="card stats-card">
+                    <div class="card-header"><i class="fas fa-tachometer-alt"></i> Analytics</div>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <label>Persons Tracked</label>
+                            <span id="stat-persons">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <label>Alerts Triggered</label>
+                            <span id="stat-alerts" class="alert-count">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <label>Last Event</label>
+                            <span id="stat-last-time">Never</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card info-card">
+                    <div class="card-header"><i class="fas fa-info-circle"></i> Detection Logic</div>
+                    <div class="logic-steps">
+                        <div class="step"><span class="num">1</span> Pose Estimation</div>
+                        <div class="step"><span class="num">2</span> Gesture Extraction</div>
+                        <div class="step"><span class="num">3</span> Temporal Verification</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 AI Surveillance Hub | Powered by Ultralytics & MediaPipe</p>
+        </footer>
+    </div>
+
+    <script>
+        function updateStats() {
+            fetch('/api/stats')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('stat-persons').innerText = data.persons_count;
+                    document.getElementById('stat-alerts').innerText = data.alert_count;
+                    document.getElementById('stat-last-time').innerText = data.last_alert_time;
+                });
+            
+            const now = new Date();
+            document.getElementById('overlay-time').innerText = now.toLocaleTimeString();
+        }
+
+        setInterval(updateStats, 1000);
+    </script>
+</body>
+</html>
