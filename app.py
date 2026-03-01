@@ -109,7 +109,7 @@ def generate_frames():
 
             if alert_active:
                 cv2.rectangle(frame, (0, 0), (w, h), (0, 0, 255), 10)
-                cv2.putText(frame, "DISTRESS SIGNAL VERIFIED", (50, 50), 
+                cv2.putText(frame, "MONITORING ALERT TRIGGERED", (50, 50), 
                             cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 3)
 
             ret, buffer = cv2.imencode('.jpg', frame)
